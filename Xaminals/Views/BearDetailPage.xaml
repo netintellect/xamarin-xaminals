@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:designData="clr-namespace:Xaminals.DesignData"
+  mc:Ignorable="d"
+  x:Class="Xaminals.Views.BearDetailPage"
+  Title="Bear Details">
+  <d:ContentPage.BindingContext>
+    <designData:BearViewModel/>
+  </d:ContentPage.BindingContext>
+  <ScrollView>
+    <StackLayout
+      Margin="20">
+      <Label Text="{Binding Name}"
+        HorizontalOptions="Center"
+        Style="{DynamicResource TitleStyle}" />
+      <Label Text="{Binding Location}"
+        FontAttributes="Italic"
+        HorizontalOptions="Center" />
+      <Image Source="{Binding ImageUrl}"
+        HeightRequest="20"
+        WidthRequest="20"
+        HorizontalOptions="CenterAndExpand" />
+      <Label
+        Text="{Binding Details}"
+        Style="{DynamicResource BodyStyle}" />
+      <ActivityIndicator IsVisible="True"
+        IsRunning="True"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        d:IsRunning="False"
+        d:IsVisible="False"/>
+        <Label
+            Text="{Binding Details}"
+            Style="{DynamicResource BodyStyle}" />
+        </StackLayout>
+  </ScrollView>
+</ContentPage>

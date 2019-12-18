@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:controls="clr-namespace:Xaminals.Controls"
+       xmlns:views="clr-namespace:Xaminals.Views"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       mc:Ignorable="d"
+       FlyoutBackgroundImageAspect="AspectFill"
+       FlyoutBackgroundColor="White"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       Navigating="OnNavigating"
+       Navigated="OnNavigated"
+       x:Class="Xaminals.AppShell">
+  <Shell.Resources>
+    <Style x:Key="BaseStyle"
+           TargetType="Element">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#455A64" />
+      <Setter Property="Shell.ForegroundColor"
+              Value="White" />
+      <Setter Property="Shell.TitleColor"
+              Value="White" />
+      <Setter Property="Shell.DisabledColor"
+              Value="#B4FFFFFF" />
+      <Setter Property="Shell.UnselectedColor"
+              Value="#95FFFFFF" />
+    </Style>
+    <Style TargetType="ShellItem"
+           BasedOn="{StaticResource BaseStyle}" />
+    <Style x:Key="DomesticShell"
+           TargetType="Element"
+           BasedOn="{StaticResource BaseStyle}">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#039BE6" />
+    </Style>
+    <Style x:Key="MonkeysShell"
+           TargetType="Element"
+           BasedOn="{StaticResource BaseStyle}">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#689F39" />
+    </Style>
+    <Style x:Key="ElephantsShell"
+           TargetType="Element"
+           BasedOn="{StaticResource BaseStyle}">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#ED3B3B" />
+    </Style>
+    <Style x:Key="BearsShell"
+           TargetType="Element"
+           BasedOn="{StaticResource BaseStyle}">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#546DFE" />
+    </Style>
+    <Style x:Key="AboutShell"
+           TargetType="Element"
+           BasedOn="{StaticResource BaseStyle}">
+      <Setter Property="Shell.BackgroundColor"
+              Value="#96d1ff" />
+    </Style>
+    <Style x:Key="FloutItemStyle"
+           TargetType="Grid">
+      <Setter Property="VisualStateManager.VisualStateGroups">
+        <VisualStateGroupList>
+          <VisualStateGroup x:Name="CommonStates">
+            <VisualState x:Name="Normal" />
+            <VisualState x:Name="Selected">
+              <VisualState.Setters>
+                <Setter Property="BackgroundColor"
+                        Value="LightGray" />
+              </VisualState.Setters>
+            </VisualState>
+          </VisualStateGroup>
+        </VisualStateGroupList>
+      </Setter>
+    </Style>
+  </Shell.Resources>
+  <Shell.FlyoutHeader>
+    <controls:FlyoutHeader />
+  </Shell.FlyoutHeader>
+
+
+  <!-- Template each FlyoutItem -->
+  <Shell.ItemTemplate>
+    <DataTemplate>
+      <Grid Style="{StaticResource FloutItemStyle}"
+            Margin="0,5,0,5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.1*" />
+          <ColumnDefinition Width="0.9*" />
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding Icon}"
+               Margin="5"
+               HeightRequest="24"
+               WidthRequest="24" />
+        <Label Grid.Column="1"
+               Text="{Binding Title}"
+               FontAttributes="Italic"
+               VerticalTextAlignment="Center" />
+      </Grid>
+    </DataTemplate>
+  </Shell.ItemTemplate>
+
+  <!-- Template each MenuItem -->
+  <Shell.MenuItemTemplate>
+    <DataTemplate>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.1*" />
+          <ColumnDefinition Width="0.9*" />
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding Icon}"
+               Margin="5"
+               HeightRequest="24"
+               WidthRequest="24" />
+        <Label Grid.Column="1"
+               Text="{Binding Text}"
+               FontAttributes="Italic"
+               VerticalTextAlignment="Center" />
+      </Grid>
+    </DataTemplate>
+  </Shell.MenuItemTemplate>
+
+  <FlyoutItem Route="animals"
+              Title="Animals"
+              FlyoutDisplayOptions="AsMultipleItems">
+    <Tab Title="Domestic"
+         Route="domestic"
+         Icon="paw.png">
+      <ShellContent Route="cats"
+                    Style="{StaticResource DomesticShell}"
+                    Title="Cats"
+                    Icon="cat.png"
+                    ContentTemplate="{DataTemplate views:CatsPage}" />
+      <ShellContent Route="dogs"
+                    Style="{StaticResource DomesticShell}"
+                    Title="Dogs"
+                    Icon="dog.png"
+                    ContentTemplate="{DataTemplate views:DogsPage}" />
+    </Tab>
+    
+    <ShellContent Route="monkeys"
+                  Style="{StaticResource MonkeysShell}"
+                  Title="Monkeys"
+                  Icon="monkey.png"
+                  ContentTemplate="{DataTemplate views:MonkeysPage}" />
+    <ShellContent Route="elephants"
+                  Style="{StaticResource ElephantsShell}"
+                  Title="Elephants"
+                  Icon="elephant.png"
+                  ContentTemplate="{DataTemplate views:ElephantsPage}" />
+    <ShellContent Route="bears"
+                  Style="{StaticResource BearsShell}"
+                  Title="Bears"
+                  Icon="bear.png"
+                  ContentTemplate="{DataTemplate views:BearsPage}" />
+  </FlyoutItem>
+
+  <ShellContent Route="about"
+                Style="{StaticResource AboutShell}"
+                Title="About"
+                Icon="info.png"
+                ContentTemplate="{DataTemplate views:AboutPage}" />
+
+  <MenuItem Text="Random"
+            IconImageSource="random.png"
+            Command="{Binding RandomPageCommand}" />
+  <MenuItem Text="Help"
+            IconImageSource="help.png"
+            Command="{Binding HelpCommand}"
+            CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />
+
+</Shell>
